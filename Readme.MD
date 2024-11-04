@@ -14,8 +14,7 @@
 
 </span>
 
-
-> Note: This is a fork of iRayanKhan's `homebridge-tuya` with bug fix related to new local keys and small improvements.
+> [DEPRECATED] This fork was created due to lack of timely updates in upstream repository of iRayanKhan. Now that his repository is receiving frequent updates along with fix for new local keys, it's recommended to switch to his plugin back for all the latest changes and improvements. I'm marking this plugin as deprecated.
 
 
 Control your supported Tuya accessories locally in HomeKit using Homebridge!
