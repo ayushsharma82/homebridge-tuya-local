@@ -124,6 +124,22 @@ class TuyaLan {
                 });
                 this.addAccessory(device);
             })
+            .on('ipChanged', ({id, oldIp, newIp}) => {
+                if (devices[id]) {
+                    this.log.info('Device %s (%s) IP changed from %s to %s.', devices[id].name, id, oldIp, newIp);
+                    devices[id].ip = newIp;
+                    // Optionally, reconnect or update accessory
+                    const device = new TuyaAccessory({
+                        ...devices[id],
+                        log: this.log,
+                        UUID: UUID.generate(PLUGIN_NAME + ':' + id),
+                        connect: false
+                    });
+                    this.addAccessory(device);
+                } else {
+                    this.log.warn('IP changed for unknown device %s from %s to %s.', id, oldIp, newIp);
+                }
+            })
             .on('update', config => {
                 if (!config || !config.id) return;
                 if (!devices[config.id]) return this.log.warn('Trying to update IP of a device that has not been configured yet (%s@%s).', config.id, config.ip);
