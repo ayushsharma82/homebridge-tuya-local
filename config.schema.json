@@ -30,7 +30,7 @@
                       "OccupancySensor"
                       ]
                   },
-                  { 
+                  {
                     "title": "Smart Plug / Barely Smart Power Strip",
                     "enum": [
                       "Outlet"
@@ -103,27 +103,27 @@
                     ]
                   },
                   {
-                    "title": "Simple Blinds2",
-                    "enum": [
-                      "Simple Blinds2"
-                    ]
-                  },
-                  {
                     "title": "Smart Plug w/ White and Color Lights",
                     "enum": [
                       "RGBTWOutlet"
                     ]
                   },
                   {
-                    "title": "Fan",
+                    "title": "Simple Fan",
                     "enum": [
                       "Fan"
                     ]
                   },
                   {
-                    "title": "Fan with Light",
+                    "title": "Simple Fan Light",
                     "enum": [
                       "FanLight"
+                    ]
+                  },
+                  {
+                    "title": "Air Purifier",
+                    "enum": [
+                      "AirPurifier"
                     ]
                   }
                 ]
@@ -138,7 +138,7 @@
               },
               "id": {
                 "type": "string",
-                "title": "Tuya ID", 
+                "title": "Tuya ID",
                 "description": "If you don't have the Tuya ID or Key, follow the steps found on the <a href='https://github.com/AMoo-Miki/homebridge-tuya-lan/wiki/Setup-Instructions' target='_blank'>Setup Instructions</a> page.",
                 "required": true,
                 "condition": {
@@ -149,6 +149,14 @@
                 "title": "Tuya Key",
                 "type": "string",
                 "required": true,
+                "condition": {
+                  "functionBody": "return model.devices && model.devices[arrayIndices].type !== 'null';"
+                }
+              },
+              "ip": {
+                "title": "IP Address",
+                "type": "string",
+                "required": false,
                 "condition": {
                   "functionBody": "return model.devices && model.devices[arrayIndices].type !== 'null';"
                 }
@@ -418,6 +426,20 @@
                   "functionBody": "return model.devices && model.devices[arrayIndices] && ['FanLight'].includes(model.devices[arrayIndices].type);"
                 }
               },
+              "maxSpeed": {
+                "type": "integer",
+                "placeholder": "3",
+                "condition": {
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['Fan', 'FanLight'].includes(model.devices[arrayIndices].type);"
+                }
+              },
+              "fanDefaultSpeed": {
+                "type": "integer",
+                "placeholder": "1",
+                "condition": {
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['Fan', 'FanLight'].includes(model.devices[arrayIndices].type);"
+                }
+              },
               "dpChildLock": {
                 "type": "integer",
                 "placeholder": "6",
@@ -511,6 +533,13 @@
                 "placeholder": "0",
                 "condition": {
                   "functionBody": "return model.devices && model.devices[arrayIndices] && ['SimpleBlinds'].includes(model.devices[arrayIndices].type);"
+                }
+              },
+              "dpLight": {
+                "type": "integer",
+                "placeholder": 1,
+                "condition": {
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['RGBTWOutlet'].includes(model.devices[arrayIndices].type);"
                 }
               }
             }
