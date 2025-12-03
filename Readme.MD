@@ -8,7 +8,7 @@
 > The original plugin by iRayan has again entered a state of dormancy so I'll keep this plugin alive for the time being. This fork adds Tuya v3.5 protocol support and some minor fixes so that the latest Tuya devices keep on working flawlessly with the current homebridge setup. 
 
 > [!IMPORTANT]
-> This is a collective project. If your device not working well with the plugin, please **DON'T** create an 'issue' expecting someone to help.  You’re the only one who can test and figure it out with the device you have. Pull requests are always welcome!
+> This is a collective project. If your device is not working well with the plugin, please **DON'T** create an 'issue' expecting someone to help.  You’re the only one who can test and figure it out with the device you have. Pull requests are always welcome!
 
 Control your supported Tuya accessories locally in HomeKit using Homebridge!
 
