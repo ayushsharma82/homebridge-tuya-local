@@ -1,14 +1,8 @@
-<p align="center">
-    <img src="https://raw.githubusercontent.com/ayushsharma82/homebridge-tuya-local/main/assets/Tuya-Plugin-Branding.png" height="100"><br>
-</p>
-
-<span align="center">
 # Homebridge-Tuya-Local
 
 [![npm](https://img.shields.io/npm/v/homebridge-tuya-local.svg)](https://www.npmjs.com/package/homebridge-tuya-local)
 [![npm](https://img.shields.io/npm/dt/homebridge-tuya-local.svg)](https://www.npmjs.com/package/homebridge-tuya-local)
 [![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
-</span>
 
 > [!NOTE]
 > The original plugin by iRayan has again entered a state of dormancy so I'll keep this plugin alive for the time being. This fork adds Tuya v3.5 protocol support and some minor fixes so that the latest Tuya devices keep on working flawlessly with the current homebridge setup. 
