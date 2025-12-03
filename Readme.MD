@@ -2,20 +2,19 @@
     <img src="https://raw.githubusercontent.com/ayushsharma82/homebridge-tuya-local/main/assets/Tuya-Plugin-Branding.png" height="100"><br>
 </p>
 
-
 <span align="center">
-
 # Homebridge-Tuya-Local
 
 [![npm](https://img.shields.io/npm/v/homebridge-tuya-local.svg)](https://www.npmjs.com/package/homebridge-tuya-local)
 [![npm](https://img.shields.io/npm/dt/homebridge-tuya-local.svg)](https://www.npmjs.com/package/homebridge-tuya-local)
 [![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
-
-
 </span>
 
-> [DEPRECATED] This fork was created due to lack of timely updates in upstream repository of iRayanKhan. Now that his repository is receiving frequent updates along with fix for new local keys, it's recommended to switch to his plugin back for all the latest changes and improvements. I'm marking this plugin as deprecated.
+> [!NOTE]
+> The original plugin by iRayan has again entered a state of dormancy so I'll keep this plugin alive for the time being. This fork adds Tuya v3.5 protocol support and some minor fixes so that the latest Tuya devices keep on working flawlessly with the current homebridge setup. 
 
+> [!IMPORTANT]
+> This is a collective project. If your device not working well with the plugin, please **DON'T** create an 'issue' expecting someone to help.  You’re the only one who can test and figure it out with the device you have. Pull requests are always welcome!
 
 Control your supported Tuya accessories locally in HomeKit using Homebridge!
 
