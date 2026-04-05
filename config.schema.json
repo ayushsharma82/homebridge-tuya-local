@@ -73,6 +73,12 @@
                     ]
                   },
                   {
+                    "title": "Portable Air Conditioner",
+                    "enum": [
+                      "PortableAirConditioner"
+                    ]
+                  },
+                  {
                     "title": "Heat Convector",
                     "enum": [
                       "Convector"
@@ -340,21 +346,46 @@
               "noHeat": {
                 "type": "boolean",
                 "condition": {
-                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['AirConditioner'].includes(model.devices[arrayIndices].type);"
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['AirConditioner','PortableAirConditioner'].includes(model.devices[arrayIndices].type);"
+                }
+              },
+              "noAuto": {
+                "type": "boolean",
+                "condition": {
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['PortableAirConditioner'].includes(model.devices[arrayIndices].type);"
+                }
+              },
+              "noDry": {
+                "type": "boolean",
+                "condition": {
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['PortableAirConditioner'].includes(model.devices[arrayIndices].type);"
+                }
+              },
+              "noFanMode": {
+                "type": "boolean",
+                "condition": {
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['PortableAirConditioner'].includes(model.devices[arrayIndices].type);"
+                }
+              },
+              "fanSpeeds": {
+                "type": "integer",
+                "placeholder": "3",
+                "condition": {
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['PortableAirConditioner'].includes(model.devices[arrayIndices].type);"
                 }
               },
               "cmdCool": {
                 "type": "string",
                 "placeholder": "COOL",
                 "condition": {
-                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['AirConditioner'].includes(model.devices[arrayIndices].type);"
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['AirConditioner','PortableAirConditioner'].includes(model.devices[arrayIndices].type);"
                 }
               },
               "cmdHeat": {
                 "type": "string",
                 "placeholder": "HEAT",
                 "condition": {
-                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['AirConditioner'].includes(model.devices[arrayIndices].type);"
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['AirConditioner','PortableAirConditioner'].includes(model.devices[arrayIndices].type);"
                 }
               },
               "noSwing": {
@@ -367,21 +398,21 @@
                 "type": "integer",
                 "placeholder": "15",
                 "condition": {
-                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['AirConditioner','Convector', 'SimpleHeater'].includes(model.devices[arrayIndices].type);"
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['AirConditioner','PortableAirConditioner','Convector', 'SimpleHeater'].includes(model.devices[arrayIndices].type);"
                 }
               },
               "maxTemperature": {
                 "type": "integer",
                 "placeholder": "40",
                 "condition": {
-                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['AirConditioner','Convector', 'SimpleHeater'].includes(model.devices[arrayIndices].type);"
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['AirConditioner','PortableAirConditioner','Convector', 'SimpleHeater'].includes(model.devices[arrayIndices].type);"
                 }
               },
               "minTemperatureSteps": {
                 "type": "integer",
                 "placeholder": "1",
                 "condition": {
-                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['AirConditioner'].includes(model.devices[arrayIndices].type);"
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['AirConditioner','PortableAirConditioner'].includes(model.devices[arrayIndices].type);"
                 }
               },
               "dpActive": {
