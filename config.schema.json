@@ -244,6 +244,14 @@
                   "functionBody": "return model.devices && model.devices[arrayIndices] && ['TWLight', 'RGBTWLight', 'SimpleDimmer','RGBTWOutlet','FanLight'].includes(model.devices[arrayIndices].type);"
                 }
               },
+              "syncBrightnessToWled": {
+                "type": "string",
+                "title": "Sync brightness to WLED (IP[:port])",
+                "placeholder": "192.168.1.100",
+                "condition": {
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['SimpleDimmer'].includes(model.devices[arrayIndices].type);"
+                }
+              },
               "dpColorTemperature": {
                 "type": "integer",
                 "condition": {
@@ -289,14 +297,14 @@
                 "type": "integer",
                 "placeholder": "1",
                 "condition": {
-                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['FanLight'].includes(model.devices[arrayIndices].type);"
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['FanLight','SimpleDimmer'].includes(model.devices[arrayIndices].type);"
                 }
               },
               "scaleBrightness": {
                 "type": "integer",
                 "placeholder": "255",
                 "condition": {
-                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['RGBTWLight','RGBTWOutlet','FanLight'].includes(model.devices[arrayIndices].type);"
+                  "functionBody": "return model.devices && model.devices[arrayIndices] && ['RGBTWLight','RGBTWOutlet','FanLight','SimpleDimmer'].includes(model.devices[arrayIndices].type);"
                 }
               },
               "scaleWhiteColor": {
