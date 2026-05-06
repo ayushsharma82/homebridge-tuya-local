@@ -1,6 +1,6 @@
 {
   "name": "homebridge-tuya-local",
-  "version": "3.1.5",
+  "version": "3.2.0",
   "description": "🏠 Control Tuya Accessories Locally with Homebridge",
   "main": "index.js",
   "scripts": {
@@ -40,7 +40,7 @@
     "lan"
   ],
   "engines": {
-    "homebridge": ">=0.4.0",
-    "node": ">=8.6.0"
+    "homebridge": "^1.6.0 || ^2.0.0",
+    "node": "^18.20.4 || ^20.15.1 || ^22 || ^24"
   }
 }

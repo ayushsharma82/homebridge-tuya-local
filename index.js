@@ -55,10 +55,11 @@ const CLASS_DEF = {
 let Characteristic, PlatformAccessory, Service, Categories, AdaptiveLightingController, UUID;
 
 module.exports = function(homebridge) {
-    ({
-        platformAccessory: PlatformAccessory,
-        hap: {Characteristic, Service, AdaptiveLightingController, Accessory: {Categories}, uuid: UUID}
-    } = homebridge);
+    PlatformAccessory = homebridge.platformAccessory;
+    ({Characteristic, Service, AdaptiveLightingController, uuid: UUID} = homebridge.hap);
+    // hap-nodejs 1.x exposed Categories under hap.Accessory.Categories; 2.x (Homebridge 2.0)
+    // moved it to hap.Categories. Support both so the plugin works across versions.
+    Categories = homebridge.hap.Categories || (homebridge.hap.Accessory && homebridge.hap.Accessory.Categories);
 
     homebridge.registerPlatform(PLUGIN_NAME, PLATFORM_NAME, TuyaLan, true);
 };
@@ -71,7 +72,7 @@ class TuyaLan {
         this.api.hap.EnergyCharacteristics = require('./lib/EnergyCharacteristics')(this.api.hap.Characteristic);
 
         if(!this.config || !this.config.devices) {
-            this.log("No devices found. Check that you have specified them in your config.json file.");
+            this.log.info("No devices found. Check that you have specified them in your config.json file.");
             return false;
         }
 
@@ -197,13 +198,17 @@ class TuyaLan {
         // also checks null objects or empty config - this._expectedUUIDs
         if (accessory instanceof PlatformAccessory && this._expectedUUIDs && this._expectedUUIDs.includes(accessory.UUID)) {
             this.cachedAccessories.set(accessory.UUID, accessory);
+            // hap-nodejs 1.x used Perms.WRITE/READ; 2.x (Homebridge 2.0) renamed them to
+            // PAIRED_WRITE/PAIRED_READ. Resolve at runtime so this works on either.
+            const writePerm = Characteristic.Perms.PAIRED_WRITE || Characteristic.Perms.WRITE;
+            const notifyPerm = Characteristic.Perms.NOTIFY;
             accessory.services.forEach(service => {
                 if (service.UUID === Service.AccessoryInformation.UUID) return;
                 service.characteristics.some(characteristic => {
                     if (!characteristic.props ||
                         !Array.isArray(characteristic.props.perms) ||
                         characteristic.props.perms.length !== 3 ||
-                        !(characteristic.props.perms.includes(Characteristic.Perms.WRITE) && characteristic.props.perms.includes(Characteristic.Perms.NOTIFY))
+                        !(characteristic.props.perms.includes(writePerm) && characteristic.props.perms.includes(notifyPerm))
                     ) return;
 
                     this.log.info('Marked %s unreachable by faulting Service.%s.%s', accessory.displayName, service.displayName, characteristic.displayName);
