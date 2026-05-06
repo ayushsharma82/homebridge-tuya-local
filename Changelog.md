@@ -7,8 +7,8 @@ All notable changes to this project will be documented in this file. This projec
 Compatibility pass for **Homebridge 2.0 / hap-nodejs 2.x**. Without these fixes the plugin silently fails to register any accessory on Homebridge 2.x.
 
 * [+] `index.js`: resolve `Categories` from `homebridge.hap.Categories` (1.x had it under `homebridge.hap.Accessory.Categories`). Fixes `TypeError: Cannot read properties of undefined (reading 'LIGHTBULB')` thrown from every accessory class's `getCategory(Categories)`.
-* [+] `index.js`: handle the `Characteristic.Perms.WRITE`/`READ` → `PAIRED_WRITE`/`PAIRED_READ` rename in the cached-accessory "unreachable" code path. Fixes `TypeError: Cannot read properties of undefined (reading 'WRITE')` on child-bridge restart with cached accessories.
-* [+] `lib/EnergyCharacteristics.js`: same `Perms.READ` → `PAIRED_READ` fallback for the custom Eve energy characteristics.
+* [+] `index.js`: capture the `Perms` enum from `hap.Perms` (hap-nodejs 2.x) with a fallback to the legacy `Characteristic.Perms` (1.x), and use the captured reference in the cached-accessory "unreachable" code path. Also handles the `WRITE`/`READ` → `PAIRED_WRITE`/`PAIRED_READ` rename. Fixes `TypeError: Cannot read properties of undefined (reading 'PAIRED_WRITE')` (and the prior `'WRITE'`/`'READ'` variants) on child-bridge restart with cached accessories.
+* [+] `lib/EnergyCharacteristics.js`: accept `Perms` as a second argument from the caller, with the same fallback, for the custom Eve energy characteristics.
 * [+] `lib/BaseAccessory.js` and `index.js`: replaced the four bare-callable `this.log(...)` invocations (`identify`, `Connected to`, `Ready to handle`, "No devices found") with `this.log.info(...)`. Homebridge 2.0's Logger isn't callable as a function; the bare form threw inside the `'connect'` event handler, tearing down the socket immediately after a successful TCP handshake.
 * [+] `package.json`: bumped `engines` to `homebridge: "^1.6.0 || ^2.0.0"` and `node: "^18.20.4 || ^20.15.1 || ^22 || ^24"`. Both fall in line with the Homebridge 2.0 Node baseline.
 

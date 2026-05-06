@@ -52,7 +52,7 @@ const CLASS_DEF = {
     oildiffuser: OilDiffuserAccessory
 };
 
-let Characteristic, PlatformAccessory, Service, Categories, AdaptiveLightingController, UUID;
+let Characteristic, PlatformAccessory, Service, Categories, AdaptiveLightingController, UUID, Perms;
 
 module.exports = function(homebridge) {
     PlatformAccessory = homebridge.platformAccessory;
@@ -60,6 +60,9 @@ module.exports = function(homebridge) {
     // hap-nodejs 1.x exposed Categories under hap.Accessory.Categories; 2.x (Homebridge 2.0)
     // moved it to hap.Categories. Support both so the plugin works across versions.
     Categories = homebridge.hap.Categories || (homebridge.hap.Accessory && homebridge.hap.Accessory.Categories);
+    // hap-nodejs 1.x exposed the Perms enum as a static on Characteristic; 2.x lifted it
+    // to a top-level export on hap. Capture from either location.
+    Perms = homebridge.hap.Perms || (Characteristic && Characteristic.Perms);
 
     homebridge.registerPlatform(PLUGIN_NAME, PLATFORM_NAME, TuyaLan, true);
 };
@@ -69,7 +72,7 @@ class TuyaLan {
         [this.log, this.config, this.api] = [...props];
 
         this.cachedAccessories = new Map();
-        this.api.hap.EnergyCharacteristics = require('./lib/EnergyCharacteristics')(this.api.hap.Characteristic);
+        this.api.hap.EnergyCharacteristics = require('./lib/EnergyCharacteristics')(this.api.hap.Characteristic, Perms);
 
         if(!this.config || !this.config.devices) {
             this.log.info("No devices found. Check that you have specified them in your config.json file.");
@@ -200,8 +203,8 @@ class TuyaLan {
             this.cachedAccessories.set(accessory.UUID, accessory);
             // hap-nodejs 1.x used Perms.WRITE/READ; 2.x (Homebridge 2.0) renamed them to
             // PAIRED_WRITE/PAIRED_READ. Resolve at runtime so this works on either.
-            const writePerm = Characteristic.Perms.PAIRED_WRITE || Characteristic.Perms.WRITE;
-            const notifyPerm = Characteristic.Perms.NOTIFY;
+            const writePerm = Perms.PAIRED_WRITE || Perms.WRITE;
+            const notifyPerm = Perms.NOTIFY;
             accessory.services.forEach(service => {
                 if (service.UUID === Service.AccessoryInformation.UUID) return;
                 service.characteristics.some(characteristic => {
