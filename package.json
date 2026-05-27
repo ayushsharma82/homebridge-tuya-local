@@ -40,7 +40,11 @@
     "lan"
   ],
   "engines": {
-    "homebridge": ">=0.4.0",
-    "node": ">=8.6.0"
+    "homebridge": ">=2.0.0",
+    "node": ">=18"
+  },
+  "peerDependencies": {
+    "homebridge": ">=2.0.0"
+  },
   }
 }
