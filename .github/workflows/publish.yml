@@ -1,9 +1,8 @@
 name: Publish package to NPM
 
 on:
-  push:
-    branches: [main]
-    tags: ['v*.*.*']
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -13,12 +12,21 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
-      # Setup .npmrc file to publish to GitHub Packages
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - name: Get version from release tag
+        id: version
+        run: echo "version=${TAG_NAME#v}" >> "$GITHUB_OUTPUT"
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
+      # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v4
         with:
           node-version: '22.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
+      - name: Set package version to ${{ steps.version.outputs.version }}
+        run: npm version "${{ steps.version.outputs.version }}" --no-git-tag-version --allow-same-version
       - run: npm test
       - run: npm publish
         env:
