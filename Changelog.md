@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. This project uses [semantic versioning](https://semver.org/).
 
+## 3.1.6
+
+* Fix Homebridge 2 startup failures when restoring cached accessories by using the current HAP permissions and categories exports.
+* Fix the six energy characteristics to use current HAP formats and permissions, retaining legacy Homebridge API fallbacks.
+* Add regression tests against HAP 2.2.2 and 0.9.8, including cached outlet identity preservation and discovery attachment.
+* Run compatibility tests before publishing. The existing npm package name, platform name, and accessory UUID generation remain unchanged.
+
 ## 2.0.1 (2021-03-25)
 This update includes the following changes:
 

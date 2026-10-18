@@ -1,10 +1,10 @@
 {
   "name": "homebridge-tuya-local",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "description": "🏠 Control Tuya Accessories Locally with Homebridge",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/hap-compatibility.js"
   },
   "bin": {
     "tuya-lan": "./bin/cli.js",
@@ -42,5 +42,9 @@
   "engines": {
     "homebridge": ">=0.4.0",
     "node": ">=8.6.0"
+  },
+  "devDependencies": {
+    "@homebridge/hap-nodejs": "2.2.2",
+    "hap-nodejs-legacy": "npm:hap-nodejs@0.9.8"
   }
 }
