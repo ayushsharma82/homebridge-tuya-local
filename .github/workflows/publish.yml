@@ -30,4 +30,5 @@ jobs:
       - name: Set package version to ${{ steps.version.outputs.version }}
         run: npm version "${{ steps.version.outputs.version }}" --no-git-tag-version --allow-same-version
       - run: npm test
-      - run: npm publish
+      # Stage-only trusted publisher: uploads to the stage queue; a maintainer approves with 2FA
+      - run: npm stage publish
