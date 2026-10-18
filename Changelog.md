@@ -2,8 +2,11 @@
 
 All notable changes to this project will be documented in this file. This project uses [semantic versioning](https://semver.org/).
 
-## 3.1.6
+## 3.2.0 (2026-10-18)
 
+* Publish to npm from GitHub releases using trusted publishing (OIDC) with staged publishing, replacing the long-lived `NPM_TOKEN`.
+* Expose TWLight scales.
+* Fix `Buffer.indexOf` argument order.
 * Fix Homebridge 2 startup failures when restoring cached accessories by using the current HAP permissions and categories exports.
 * Fix the six energy characteristics to use current HAP formats and permissions, retaining legacy Homebridge API fallbacks.
 * Add regression tests against HAP 2.2.2 and 0.9.8, including cached outlet identity preservation and discovery attachment.
