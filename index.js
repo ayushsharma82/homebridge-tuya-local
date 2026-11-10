@@ -72,7 +72,10 @@ class TuyaLan {
         [this.log, this.config, this.api] = [...props];
 
         this.cachedAccessories = new Map();
-        this.api.hap.EnergyCharacteristics = require('./lib/EnergyCharacteristics')(this.api.hap);
+        // Homebridge 2 freezes api.hap, so we can't add properties to it.
+        // Wrap it: reads fall through to the real hap; our additions live on the wrapper.
+        this.hap = Object.create(this.api.hap);
+        this.hap.EnergyCharacteristics = require('./lib/EnergyCharacteristics')(this.api.hap);
 
         if(!this.config || !this.config.devices) {
             this.log("No devices found. Check that you have specified them in your config.json file.");
