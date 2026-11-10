@@ -66,7 +66,9 @@ function verify(hap, label) {
         Volts: formats.FLOAT,
         Watts: formats.FLOAT
     };
-    const energy = hap.EnergyCharacteristics;
+    // Read the energy characteristics from the platform: Homebridge 2 passes a
+    // frozen hap, so the plugin must not (and cannot) attach them to api.hap.
+    const energy = platform.hap.EnergyCharacteristics;
     assert.strictEqual(Object.keys(energy).length, 6);
     for (const name of Object.keys(energy)) {
         const characteristic = new energy[name]();
@@ -83,6 +85,9 @@ assert.strictEqual(modern.Characteristic.Perms, undefined);
 assert.strictEqual(modern.Characteristic.Formats, undefined);
 assert.strictEqual(modern.Accessory.Categories, undefined);
 verify(modern, 'HAP 2.2.2');
+// Homebridge 2 hands plugins api.hap as a frozen object (an ES module namespace).
+// Assigning a new property to it throws, so exercise the same shape here.
+verify(Object.freeze(Object.assign({}, modern)), 'HAP 2.2.2 frozen, as in Homebridge 2');
 
 const legacy = require('hap-nodejs-legacy');
 verify(legacy, 'HAP 0.9.8');
